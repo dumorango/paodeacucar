@@ -1,0 +1,319 @@
+﻿{
+  "process": [
+    {
+      "name": "Por Serviço",
+      "members": [
+        {
+          "name": "Oracle RDF",
+          "members": [
+            {
+              "name": "Criar Conta",
+              "func": "relatorio_OracleRDF_add",
+              "filters": [
+                "subject_service='Oracle RDF'",
+                "name='accountAddProcessName'",
+                "parent_id=0"
+              ]
+            },
+            {
+              "name": "Modificar Conta",
+              "func": "relatorio_OracleRDF_modify",
+              "filters": [
+                "subject_service='Oracle RDF'",
+                "name='accountModifyProcessName'",
+                "parent_id=0"
+              ]
+            },
+            {
+              "name": "Deletar Conta",
+              "func": "relatorio_OracleRDF_delete",
+              "filters": [
+                "subject_service='Oracle RDF'",
+                "name='accountDeleteProcessName'",
+                "parent_id=0"
+              ]
+            }
+          ]
+        },
+         {
+          "name": "Oracle AIP",
+          "members": [
+            {
+              "name": "Criar Conta",
+              "func": "relatorio_OracleRDF_add",
+              "filters": [
+                "subject_service='Oracle AIP'",
+                "name='accountAddProcessName'",
+                "parent_id=0"
+              ]
+            },
+            {
+              "name": "Modificar Conta",
+              "func": "relatorio_OracleRDF_modify",
+              "filters": [
+                "subject_service='Oracle AIP'",
+                "name='accountModifyProcessName'",
+                "parent_id=0"
+              ]
+            },
+            {
+              "name": "Deletar Conta",
+              "func": "relatorio_OracleRDF_delete",
+              "filters": [
+                "subject_service='Oracle AIP'",
+                "name='accountDeleteProcessName'",
+                "parent_id=0"
+              ]
+            }
+          ]
+        },
+        {
+          "name": "SAP",
+          "members": [
+            {
+              "name": "Criar Conta",
+              "func": "relatorio_SAP_add"
+            },
+            {
+              "name": "Modificar Conta",
+              "func": "relatorio_SAP_modify"
+            }
+          ]
+        },
+        {
+          "name": "Rede 2008",
+          "members": [
+            {
+              "name": "Criar Conta",
+              "func": "relatorio_Rede2008_add"
+            },
+            {
+              "name": "Modificar Conta",
+              "func": "relatorio_Rede2008_modify"
+            },
+            {
+              "name": "Deletar Conta",
+              "func": "relatorio_Rede2008_delete"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Regras do Ciclo de Vida",
+      "members": [
+        {
+          "name": "Recertificação",
+          "members": [
+            {
+              "name": "Êxito",
+              "func": "relatorio_RecertificacaoExito"
+            },
+            {
+              "name": "Falha",
+              "func": "relatorio_RecertificacaoFalha"
+            }
+          ]
+        },
+        {
+          "name": "Prorrogação",
+          "members": [
+            {
+              "name": "Êxito",
+              "func": "relatorio_ProrrogacaoExito"
+            },
+            {
+              "name": "Falha",
+              "func": "relatorio_ProrrogacaoFalha"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tickets",
+      "members": [
+        {
+          "name": "Rede",
+          "func": "relatorio_Rede"
+        },
+        {
+          "name": "Restaura Senha",
+          "func": "relatorio_RestauraSenha"
+        },
+        {
+          "name": "Acesso para SAP",
+          "func": "relatorio_AcessoParaSAP"
+        },
+        {
+          "name": "Acesso para Mainframe",
+          "func": "relatorio_Acesso_para_Emulador"
+        },
+        {
+          "name": "Acesso para Pacotes",
+          "func": "relatorio_Pacotes_e_Ferramentas"
+        },
+        {
+          "name": "Acesso para Sistemas Coorporativos",
+          "func": "relatorio_Sistemas_Coorporativos"
+        },
+        {
+          "name": "TI",
+          "func": "relatorio_TI"
+        }
+      ],
+      "field": "value"
+    },
+    {
+      "name": "Por Operação",
+      "members": [
+        {
+          "name": "Criar Conta",
+          "func": "relatorio_operation_createAccount"
+        },
+        {
+          "name": "Modificar Conta",
+          "func": "relatorio_operation_modifyAccount"
+        },
+        {
+          "name": "Restaura Conta",
+          "func": "relatorio_operation_restoreAccount"
+        },
+        {
+          "name": "Suspende Conta",
+          "func": "relatorio_operation_suspendAccount"
+        },
+        {
+          "name": "Deleta Conta",
+          "func": "relatorio_operation_deleteAccount"
+        },
+        {
+          "name": "Total de Processos"
+          ,"reportName":"REPORTTOTALPROCESSBYSTARTDATE"
+          ,"config":{}
+          ,"type":"java"
+          ,"form":"totalprocessbydate_form.html"
+        }
+      ]
+    },
+    {
+      "name": "Atividades Manuais",
+      "members": [
+        {
+          "name": "Atividades Manuais",
+          "func": "relatorio_atividadesManuais"
+        }
+      ]
+    }
+  ],
+  "entity": [
+    {
+      "name": "Contas",
+      "members": [
+        {
+          "name": "Oracle RDF",
+           "filter":{"method":"getAccountsByServiceName","params":{"serviceName":"Oracle RDF"}},
+          "file":"oracleRDFAccounts.js",
+          "func":"OracleRDFAccounts"
+        },
+         {
+          "name": "Oracle AIP",
+           "filter":{"method":"getAccountsByServiceName","params":{"serviceName":"Oracle AIP"}},
+          "file":"oracleAIPAccounts.js",
+          "func":"OracleAIPAccounts"
+        },
+        {
+          "name": "Oracle MFP",
+           "filter":{"method":"getAccountsByServiceName","params":{"serviceName":"Oracle MFP"}},
+          "file":"oracleMFPAccounts.js",
+          "func":"OracleMFPAccounts"
+        },
+        {
+          "name": "SAP",
+           "filter":{"method":"getAccountsByServiceName","params":{"serviceName":"SistemaSAP Mandante 100"}},
+          "file":"SAPAccounts.js",
+          "func":"SAPAccounts"
+        }
+      	]
+    },
+     {
+      "name": "Pessoas",
+      "members": [
+        {
+          "name": "E-mail"
+          ,"servlet":"/ReportSI"
+          ,"params":{"filter":"(objectclass=*)"}
+          ,"type":"java"
+        },
+         {
+          "name": "Xerox"
+          ,"servlet":"/ReportXerox"
+          ,"params":{"filter":"(objectclass=*)"}
+          ,"type":"java"
+        },
+        {
+          "name": "Telefonia"
+          ,"servlet":"/ReportTelefonia"
+          ,"params":{"filter":"(uid=20279211848)"}
+          ,"type":"java"
+        }
+      	]
+    }
+  	]
+  ,"activity":[
+  	{
+      "name": "Atividades Manuais",
+      "members": [
+        {
+          "name": "Total",
+          "file":"manualActivities.js",
+          "func":"manualActivities"
+        },
+        {
+          "name": "Por Serviço",
+          "file":"manualActivitiesByService.js",
+          "func":"manualActivitiesByService"
+        },
+        {
+          "name": "Por Atividade",
+          "file":"manualActivitiesByActivity.js",
+          "func":"manualActivitiesByActivity"
+        },
+         {
+          "name": "Por Atuante(NOVO)"
+          ,"reportName":"BYACTOR"
+          ,"config":{"filter":"(uid=20279211848)"}
+          ,"type":"java"
+          ,"form":"actor_form.html"
+        },
+        {
+          "name": "Por Atuações(NOVO)"
+          ,"reportName":"BYACTIONSFORACTOR"
+          ,"config":{"filter":"(uid=20279211848)"}
+          ,"type":"java"
+          ,"form":"actionbyactor_form.html"
+        },
+         {
+          "name": "Numero de Pedidos por Mês"
+          ,"reportName":"BYPROCESSESBYMONTH"
+          ,"config":{"filter":"(uid=20279211848)"}
+          ,"type":"java"
+          ,"form":"processesbymonth_form.html"
+        }
+      	]
+    },
+      	{
+      "name": "Atividades Manuais em Buffer",
+      "members": [
+        {
+          "name": "Por Atividade"
+          ,"file":"bufferedManualActivitiesByActivity.js"
+          ,"func":"bufferedManualActivitiesByActivity"
+          ,"source":"getBufferedActivitiesByDateAndService"
+          ,"loadType":"buffered"
+        }
+      	]
+      
+    }
+  ]
+}

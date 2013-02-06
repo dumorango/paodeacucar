@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!--  
+  <bean class="com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceExporter"/>
+
+  <bean class="br.com.companhiadesistemas.itimcustomreports.ReportsServiceImpl" />
+-->
+
+	<bean id="userService" class="br.com.companhiadesistemas.itimcustomreports.entities.ReportXeroxService">
+    </bean>
+
+    <bean name="/UserService.json" class="com.googlecode.jsonrpc4j.spring.JsonServiceExporter">
+        <property name="service" ref="userService"/>
+        <property name="serviceInterface" value="br.com.companhiadesistemas.itimcustomreports.ReportService"/>
+    </bean>
+    
+</beans>

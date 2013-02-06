@@ -1,0 +1,9 @@
+<div class='form' id='actor_form' style='text-align: center;'>
+	<p id='init_date' class='date'>Data Inicial: <input/> Horario: <input value='00:00:00.000'/></p>
+	<p id='final_date' class='date'>Data Final: <input/> Horario: <input value='23:59:59.999'/></p>
+	<p>Nome do Servico: <input id='service'/></p>
+</div>
+<script>
+$('.form:last').find('.date:first').find('input:first').datepicker();
+$('.form:last').find('.date:last').find('input:first').datepicker();
+</script>
