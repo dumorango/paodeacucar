@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace/lib/itim_api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace/lib/itim_common.jar"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace/lib/itim_server.jar"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace/lib/itim_server_api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace_spring/dependencies/commons-codec-1.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace_spring/dependencies/jackson-all-1.9.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace_spring/dependencies/jackson-annotations-2.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace_spring/dependencies/jackson-core-2.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace_spring/dependencies/jackson-databind-2.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/22309242810/Documents/workspace_spring/dependencies/jackson-mini-1.9.7.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
