@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.DeserializationConfig.Feature;
+import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.companhiadesistemas.googleappsserviceprovider.entities.GoogleAccount;
 import br.com.companhiadesistemas.googleappsserviceprovider.googleapis.GoogleProvisioningWebServices;
@@ -57,12 +57,14 @@ public class GoogleAppsAdapter extends IntegrationAdapter<GoogleAccount>{
 	
 	public GoogleAccount add(Map connectionProperties,GoogleAccount account) throws Exception {
 		connect(connectionProperties);
-		return webservices.createAccount(account);
+		webservices.createAccount(account);
+		return null;
 	}
 
 	public GoogleAccount modify(Map connectionProperties,GoogleAccount oldAccount, GoogleAccount newAccount) throws Exception {
 		connect(connectionProperties);
-		return webservices.updateUser(newAccount);
+		webservices.updateUser(newAccount);
+		return null;
 		
 	}
 
@@ -74,24 +76,26 @@ public class GoogleAppsAdapter extends IntegrationAdapter<GoogleAccount>{
 
 	public GoogleAccount suspend(Map connectionProperties,GoogleAccount account) throws Exception {
 		connect(connectionProperties);
-		return webservices.suspendUser(account);
+		webservices.suspendUser(account);
+		return null;
 	}
 
 	public GoogleAccount restore(Map connectionProperties,GoogleAccount account) throws Exception {
 		connect(connectionProperties);
-		return webservices.restoreUser(account);
+		webservices.restoreUser(account);
+		return null;
 	}
 
 	public GoogleAccount delete( Map connectionProperties,GoogleAccount account) throws Exception {
 		webservices.removeAccount(account);
-		return account;
+		return null;
 	}
 
 	public Collection<?> search(Map connectionProperties) throws Exception {
 		connect(connectionProperties);
 		ArrayList entities = new ArrayList(webservices.getAllAccounts(null));
 		entities.addAll(webservices.getAllOrgUnits());
-		return entities;	
+		return entities;
 	}
 	
 	public boolean test(Map connectionProperties) throws Exception{

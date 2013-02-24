@@ -2,14 +2,12 @@ package br.com.companhiadesistemas.googleappsserviceprovider.entities;
 
 import java.util.*;
 
-import org.codehaus.jackson.map.JsonDeserializer;
-import org.codehaus.jackson.map.annotate.*;
-import org.codehaus.jackson.type.TypeReference;
 
 import br.com.companhiadesistemas.googleappsserviceprovider.GoogleAppsAdapter;
 import br.com.companhiadesistemas.serviceproviders.integration.ItimEntity;
 import br.com.companhiadesistemas.serviceproviders.jsonrpc.*;
 
+import com.fasterxml.jackson.databind.annotation.*;
 import com.google.gdata.data.appsforyourdomain.generic.GenericEntry;
 import com.google.gdata.data.contacts.ContactEntry;
 

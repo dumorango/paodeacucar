@@ -2,14 +2,13 @@ package br.com.companhiadesistemas.googleappsserviceprovider.entities;
 
 import java.util.HashMap;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
+import com.fasterxml.jackson.databind.annotation.*;
 
 import br.com.companhiadesistemas.googleappsserviceprovider.GoogleAppsAdapter;
 import br.com.companhiadesistemas.serviceproviders.integration.ItimEntity;
 import br.com.companhiadesistemas.serviceproviders.jsonrpc.JsonRpcEntityDeserializer;
 import br.com.companhiadesistemas.serviceproviders.jsonrpc.JsonRpcEntitySerializer;
-
+import br.com.companhiadesistemas.serviceproviders.jsonrpc.*;
 import com.google.gdata.data.appsforyourdomain.generic.GenericEntry;
 
 @JsonSerialize(using=JsonRpcEntitySerializer.class)
