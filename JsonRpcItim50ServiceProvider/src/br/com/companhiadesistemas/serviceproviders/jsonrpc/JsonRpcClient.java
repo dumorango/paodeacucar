@@ -3,12 +3,12 @@ package br.com.companhiadesistemas.serviceproviders.jsonrpc;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import br.com.companhiadesistemas.serviceproviders.integration.IntegrationInterface;
 import br.com.companhiadesistemas.serviceproviders.integration.IntegrationLayersEnum;
 import br.com.companhiadesistemas.serviceproviders.logging.Logging;
 
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.googlecode.jsonrpc4j.*;
 
 @SuppressWarnings({ "rawtypes"})
@@ -21,7 +21,7 @@ public class JsonRpcClient implements IntegrationInterface{
 		JsonRpcHttpClient client = new JsonRpcHttpClient(
 			    new URL((String) integrationLayerConfig.get("webservicehost")));
 		client.setReadTimeoutMillis(3600000);
-		remoteService = ProxyUtil.createProxy(
+		remoteService = ProxyUtil.createClientProxy(
 			    client.getClass().getClassLoader(),
 			    IntegrationInterface.class,
 			    client);

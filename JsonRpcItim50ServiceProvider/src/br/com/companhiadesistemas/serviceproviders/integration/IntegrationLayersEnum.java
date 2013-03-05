@@ -3,9 +3,8 @@ package br.com.companhiadesistemas.serviceproviders.integration;
 import java.io.IOException;
 import java.util.*;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 
 import br.com.companhiadesistemas.serviceproviders.jsonrpc.JsonRpcClient;
 import br.com.companhiadesistemas.serviceproviders.logging.Logging;

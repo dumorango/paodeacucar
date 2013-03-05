@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+ <bean id="fromStringConverter"
+  class="org.springframework.ldap.odm.typeconversion.impl.converters.FromStringConverter" />
+ <bean id="toStringConverter"
+  class="org.springframework.ldap.odm.typeconversion.impl.converters.ToStringConverter" />
+ <bean id="converterManager"
+  class="org.springframework.ldap.odm.typeconversion.impl.ConverterManagerFactoryBean">
+  <property name="converterConfig">
+   <set>
+    <bean
+     class="org.springframework.ldap.odm.typeconversion.impl.ConverterManagerFactoryBean$ConverterConfig">
+     <property name="fromClasses">
+      <set>
+       <value>java.lang.String</value>
+      </set>
+     </property>
+     <property name="toClasses">
+      <set>
+       <value>java.lang.Byte</value>
+       <value>java.lang.Short</value>
+       <value>java.lang.Integer</value>
+       <value>java.lang.Long</value>
+       <value>java.lang.Float</value>
+       <value>java.lang.Double</value>
+       <value>java.lang.Boolean</value>
+      </set>
+     </property>
+     <property name="converter" ref="fromStringConverter" />
+    </bean>
+    <bean
+     class="org.springframework.ldap.odm.typeconversion.impl.ConverterManagerFactoryBean$ConverterConfig">
+     <property name="fromClasses">
+      <set>
+       <value>java.lang.Byte</value>
+       <value>java.lang.Short</value>
+       <value>java.lang.Integer</value>
+       <value>java.lang.Long</value>
+       <value>java.lang.Float</value>
+       <value>java.lang.Double</value>
+       <value>java.lang.Boolean</value>
+      </set>
+     </property>
+     <property name="toClasses">
+      <set>
+       <value>java.lang.String</value>
+      </set>
+     </property>
+     <property name="converter" ref="toStringConverter" />
+    </bean>
+   </set>
+  </property>
+ </bean>
+ <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+  <property name="url" value="ldap://10.100.110.245:389" />
+  <property name="userDn" value="cn=root" />
+  <property name="password" value="Tivoli01" />
+ </bean>
+ <bean id="odmManager" class="org.springframework.ldap.odm.core.impl.OdmManagerImplFactoryBean">
+        <property name="converterManager" ref="converterManager" />
+        <property name="managedClasses">
+            <set>
+                <value>br.com.companhiadesistemas.gpaoffice.customizations.wkfapp.HistoricalOrgUnitsEntry</value>
+            </set>
+        </property>
+        <property name="contextSource"  ref="contextSource"></property>
+ </bean>
+ <bean id="historicalGAppsAccountManager"
+ 	name="historicalGAppsAccountManager"
+ 	class="br.com.companhiadesistemas.gpaoffice.customizations.wkfapp.HistoricalOrgsManager">
+ <property name="manager" ref="odmManager"></property>
+ <property name="baseDN" value="dc=teste,DC=TIM"></property>
+ </bean>
+</beans>

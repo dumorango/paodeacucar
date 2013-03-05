@@ -9,9 +9,8 @@ import java.util.Map;
 import org.apache.log4j.*;
 import org.aspectj.lang.*;
 import org.aspectj.lang.annotation.*;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 
 import br.com.companhiadesistemas.serviceproviders.integration.IntegrationPointcuts;
 @Aspect
@@ -70,7 +69,7 @@ public class Logging {
 		//Configure log based on service parameters
 		this.setLogProperties((Map)jp.getArgs()[0]);
 		LOGGER.info("Requisição finalizada sem exceções: "+jp.getSignature().getName());
-		//LOGGER.debug("Argumentos:"+ Arrays.toString(jp.getArgs()));
+		LOGGER.debug("Argumentos:"+ Arrays.toString(jp.getArgs()));
 	}
 	
 }

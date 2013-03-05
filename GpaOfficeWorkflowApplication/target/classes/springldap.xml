@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+ <bean id="fromStringConverter"
+  class="org.springframework.ldap.odm.typeconversion.impl.converters.FromStringConverter" />
+ <bean id="toStringConverter"
+  class="org.springframework.ldap.odm.typeconversion.impl.converters.ToStringConverter" />
+ <bean id="converterManager"
+  class="org.springframework.ldap.odm.typeconversion.impl.ConverterManagerFactoryBean">
+  <property name="converterConfig">
+   <set>
+    <bean
+     class="org.springframework.ldap.odm.typeconversion.impl.ConverterManagerFactoryBean$ConverterConfig">
+     <property name="fromClasses">
+      <set>
+       <value>java.lang.String</value>
+      </set>
+     </property>
+     <property name="toClasses">
+      <set>
+       <value>java.lang.Byte</value>
+       <value>java.lang.Short</value>
+       <value>java.lang.Integer</value>
+       <value>java.lang.Long</value>
+       <value>java.lang.Float</value>
+       <value>java.lang.Double</value>
+       <value>java.lang.Boolean</value>
+      </set>
+     </property>
+     <property name="converter" ref="fromStringConverter" />
+    </bean>
+    <bean
+     class="org.springframework.ldap.odm.typeconversion.impl.ConverterManagerFactoryBean$ConverterConfig">
+     <property name="fromClasses">
+      <set>
+       <value>java.lang.Byte</value>
+       <value>java.lang.Short</value>
+       <value>java.lang.Integer</value>
+       <value>java.lang.Long</value>
+       <value>java.lang.Float</value>
+       <value>java.lang.Double</value>
+       <value>java.lang.Boolean</value>
+      </set>
+     </property>
+     <property name="toClasses">
+      <set>
+       <value>java.lang.String</value>
+      </set>
+     </property>
+     <property name="converter" ref="toStringConverter" />
+    </bean>
+   </set>
+  </property>
+ </bean>
+ <bean id="contextSource" class="br.com.companhiadesistemas.itim.ldap.ItimLdapContext">
+ </bean>
+ <bean id="odmManager" class="org.springframework.ldap.odm.core.impl.OdmManagerImplFactoryBean">
+        <property name="converterManager" ref="converterManager" />
+        <property name="managedClasses">
+            <set>
+                <value>br.com.companhiadesistemas.itim.gpa.gpaoffice.customizations.HistoricalOrgUnitsEntry</value>
+            </set>
+        </property>
+        <property name="contextSource"  ref="contextSource"></property>
+ </bean>
+ <bean id="historicalGAppsAccountManager" name="historicalGAppsAccountManager"
+ 	class="br.com.companhiadesistemas.itim.gpa.gpaoffice.customizations.HistoricalOrgsManager">
+ <property name="manager" ref="odmManager"></property>
+ <property name="baseDN" value="dc=teste,DC=TIM"></property>
+ </bean>
+ <bean id="ldapTemplate">
+ <constructor-arg ref="contextSource"></constructor-arg>
+ </bean>
+ 
+ <bean id="ldapContact">
+ <property name="ldapTemplate" ref="ldapTemplate"></property>
+ </bean>
+ 
+ 
+</beans>

@@ -3,13 +3,12 @@ package br.com.companhiadesistemas.serviceproviders;
 import java.io.IOException;
 import java.util.*;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-
 import br.com.companhiadesistemas.serviceproviders.integration.IntegrationInterface;
 import br.com.companhiadesistemas.serviceproviders.integration.IntegrationLayersEnum;
 import br.com.companhiadesistemas.serviceproviders.logging.Logging;
+
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 
 import com.ibm.itim.common.AttributeChangeIterator;
 import com.ibm.itim.common.AttributeChangeOperation;
@@ -158,7 +157,7 @@ public class GenericProvider implements ServiceProvider{
 		return getDirectoryObject(entityDN).getAttributes();
 	}
 	
-	AttributeValues getEntityAsAttributeValues(Object entity) throws JsonGenerationException, JsonMappingException, IOException{
+	AttributeValues getEntityAsAttributeValues(Object entity) throws JsonMappingException, IOException{
 		AttributeValues avs = new AttributeValues();
 		ObjectMapper mapper = new ObjectMapper();
 		Map accountMap = mapper.convertValue(entity, Map.class);

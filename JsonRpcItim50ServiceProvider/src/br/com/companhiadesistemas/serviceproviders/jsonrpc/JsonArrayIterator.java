@@ -3,9 +3,7 @@ package br.com.companhiadesistemas.serviceproviders.jsonrpc;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.JsonParser;
-import org.codehaus.jackson.JsonToken;
+import com.fasterxml.jackson.core.*;
 
 public class JsonArrayIterator implements Iterator<String>{
 	

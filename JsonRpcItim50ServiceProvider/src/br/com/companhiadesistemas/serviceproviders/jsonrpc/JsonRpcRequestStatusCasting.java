@@ -6,13 +6,10 @@ import java.util.Map;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
-
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 import br.com.companhiadesistemas.serviceproviders.logging.Logging;
 
-import com.googlecode.jsonrpc4j.JsonRpcClientException;
 import com.ibm.itim.remoteservices.provider.RequestStatus;
 
 @Aspect
@@ -27,12 +24,12 @@ public class JsonRpcRequestStatusCasting {
 			try{
 			retValue = pjp.proceed();
 			return new RequestStatus(RequestStatus.SUCCESSFUL,"Sucesso");
-			}catch(JsonRpcClientException ex){
+			}catch(JsonParseException ex){
 				ex.printStackTrace();
 				ObjectMapper mapper = new ObjectMapper();
-				Map exceptionMap = mapper.readValue(ex.getData(), Map.class);
-				return new RequestStatus(RequestStatus.UNSUCCESSFUL,"Erro:: "+exceptionMap.get("exceptionTypeName")
-						+ "\nMensagem: "+exceptionMap.get("message")); 
+				//Map exceptionMap = mapper.readValue(ex.getData(), Map.class);
+				return new RequestStatus(RequestStatus.UNSUCCESSFUL,"Erro:: "+ex);
+				//		+ "\nMensagem: "+exceptionMap.get("message")); 
 			}
 		}catch(Exception ex){	
 			ex.printStackTrace();

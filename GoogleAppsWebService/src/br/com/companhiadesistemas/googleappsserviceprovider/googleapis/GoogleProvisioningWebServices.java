@@ -115,6 +115,7 @@ public class GoogleProvisioningWebServices {
 		googleAccount.setUserEntry(userservice.updateUser(user));
 		return googleAccount;
 	}
+	
 	public Collection<GoogleAccount> getAllAccounts(ArrayList<String> attributes) throws Exception{
 		ArrayList<GoogleAccount> accounts = new ArrayList<GoogleAccount>();
 		HashMap<String,GoogleAccount> accounts_map = new HashMap<String,GoogleAccount>();

@@ -70,7 +70,7 @@ public class GoogleAppsAdapter extends IntegrationAdapter<GoogleAccount>{
 
 	public GoogleAccount changePassword(Map ConnectionProperties,GoogleAccount account, byte[] newPassword)
 			throws Exception {
-		// TODO Auto-generated method stub
+		webservices.updateUser(account);
 		return null;
 	}
 

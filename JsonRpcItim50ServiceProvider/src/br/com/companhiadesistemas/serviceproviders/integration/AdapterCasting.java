@@ -9,7 +9,9 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.codehaus.jackson.map.ObjectMapper;
+
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 
 import br.com.companhiadesistemas.serviceproviders.logging.Logging;
 
