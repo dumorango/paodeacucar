@@ -61,7 +61,9 @@ public enum GoogleAccountDeserializerEnum{
 				break;
 			case GOOGLEORGUNIT:
 				GenericEntry org = new GenericEntry();
-				org.addProperty("orgUnitPath",URLEncoder.encode((String) value));
+				//org.addProperty("orgUnitPath",URLEncoder.encode((String) value));
+				org.addProperty("orgUnitPath",(String) value);
+				
 				googleaccount.setOrgUnit(org);
 				break;
 			default:

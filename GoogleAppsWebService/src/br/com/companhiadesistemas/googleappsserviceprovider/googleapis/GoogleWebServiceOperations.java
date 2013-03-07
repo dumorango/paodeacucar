@@ -16,7 +16,7 @@ import com.google.gdata.data.appsforyourdomain.generic.GenericEntry;
 import com.google.gdata.data.appsforyourdomain.provisioning.UserEntry;
 import com.google.gdata.util.ServiceException;
 
-public class GoogleProvisioningWebServices {
+public class GoogleWebServiceOperations {
 
 	private String domain;
 	public String getDomain() {
@@ -28,7 +28,7 @@ public class GoogleProvisioningWebServices {
 	}
 
 	private ServiceAuthorizator authorizator;
-	private GoogleUserWebService userservice;
+	private GoogleProvisioningWebService userservice;
 	private GoogleGroupsService groupsservice;
 	private GoogleOrgManagementWebService orgservice;
 	private GoogleProfileService profileservice;
@@ -43,7 +43,7 @@ public class GoogleProvisioningWebServices {
 	}
 	
 	public void authorizeServices() throws Exception{
-		userservice = new GoogleUserWebService(domain);
+		userservice = new GoogleProvisioningWebService(domain);
 		authorizator.authorize(userservice.getGoogleService());
 		orgservice = new GoogleOrgManagementWebService(domain);
 		authorizator.authorize(orgservice.getGoogleService());
@@ -66,7 +66,6 @@ public class GoogleProvisioningWebServices {
 	
 	private void setAccountProperties(GoogleAccount googleaccount,ArrayList<String> attributes) throws Exception{
 		String userEmail = getUserEmail(googleaccount);
-		//googleaccount.setUserEntry(userservice.retrieveUser(userEmail));
 		googleaccount.setNicknames(userservice.retrieveAllUserAliases(userEmail));
 		googleaccount.setOrgUnit(orgservice.retrieveOrganizaionUser(
 				orgCustomerId

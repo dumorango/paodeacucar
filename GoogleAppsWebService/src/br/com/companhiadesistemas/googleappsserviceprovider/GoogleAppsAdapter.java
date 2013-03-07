@@ -9,7 +9,7 @@ import org.codehaus.jackson.map.DeserializationConfig.Feature;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.companhiadesistemas.googleappsserviceprovider.entities.GoogleAccount;
-import br.com.companhiadesistemas.googleappsserviceprovider.googleapis.GoogleProvisioningWebServices;
+import br.com.companhiadesistemas.googleappsserviceprovider.googleapis.GoogleWebServiceOperations;
 import br.com.companhiadesistemas.googleappsserviceprovider.googleapis.authorization.ClientLoginAuthorizator;
 import br.com.companhiadesistemas.googleappsserviceprovider.googleapis.authorization.OAuthAuthorizator;
 import br.com.companhiadesistemas.googleappsserviceprovider.googleapis.authorization.ServiceAuthorizator;
@@ -18,7 +18,7 @@ import br.com.companhiadesistemas.serviceproviders.integration.IntegrationAdapte
 @SuppressWarnings({"unchecked","rawtypes"})
 public class GoogleAppsAdapter extends IntegrationAdapter<GoogleAccount>{
 
-	GoogleProvisioningWebServices webservices;
+	GoogleWebServiceOperations webservices;
 	
 	public boolean connect(Map connectionProperties) throws Exception {
 		ObjectMapper mapper = new ObjectMapper();
@@ -45,7 +45,7 @@ public class GoogleAppsAdapter extends IntegrationAdapter<GoogleAccount>{
 			authorizator = clientLoginAuthorizator;
 		}
 		
-		webservices = new GoogleProvisioningWebServices();
+		webservices = new GoogleWebServiceOperations();
 		webservices.setAuthorizator(authorizator);
 		webservices.setDomain(props.get("maildomain"));
 		webservices.authorizeServices();
@@ -68,9 +68,12 @@ public class GoogleAppsAdapter extends IntegrationAdapter<GoogleAccount>{
 		
 	}
 
-	public GoogleAccount changePassword(Map ConnectionProperties,GoogleAccount account, byte[] newPassword)
+	public GoogleAccount changePassword(Map connectionProperties,GoogleAccount account, byte[] newPassword)
 			throws Exception {
-		webservices.updateUser(account);
+		if(connect(connectionProperties)){
+			account.getUserEntry().addProperty("password",new String(newPassword));
+			webservices.updateUser(account);
+		}
 		return null;
 	}
 

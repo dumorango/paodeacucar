@@ -36,7 +36,7 @@ import java.util.*;
 * 
 * 
 */
-public class GoogleUserWebService extends GoogleWebService {
+public class GoogleProvisioningWebService extends GoogleWebService {
 
 GoogleService googleservice;
 
@@ -48,7 +48,7 @@ GoogleService googleservice;
  /**
   * Constructor for credential-less services - OAuth.
   */
- public GoogleUserWebService(String domain) {
+ public GoogleProvisioningWebService(String domain) {
 	 super(domain);
 	 googleservice = new AppsPropertyService(applicationName);
 

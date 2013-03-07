@@ -4,7 +4,7 @@ import br.com.companhiadesistemas.googleappsserviceprovider.googleapis.authoriza
 import com.google.gdata.client.GoogleService;
 public abstract class GoogleWebService {
 	
-	final String applicationName = "grupopaodeacucar-ITIMAdapter-v1.0";
+	final String applicationName = "CiaDeSistemas-ITIMAdapter-v1.0";
 	String domain = null;
 	
 	GoogleWebService(String domain){
