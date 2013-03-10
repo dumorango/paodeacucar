@@ -11,10 +11,10 @@ public class GpaOfficeScriptBean implements ExtensionBean{
 
 	HistoricalOrgsManager historicalOrgManager;
 
-	public String getLastHistoricalOrgUnit(String eruid){
+	public String getLastHistoricalOrgUnit(String accountDN){
 		ApplicationContext context = new ClassPathXmlApplicationContext("springldap.xml");
 	    historicalOrgManager = (HistoricalOrgsManager) context.getBean("historicalGAppsAccountManager");
-		return historicalOrgManager.getLastOrgUnit(eruid);
+		return historicalOrgManager.getLastOrgUnit(accountDN);
 	}
 
 }

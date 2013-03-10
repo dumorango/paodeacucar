@@ -1,11 +1,14 @@
 package br.com.companhiadesistemas.googleappsserviceprovider;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.DeserializationConfig.Feature;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import br.com.companhiadesistemas.googleappsserviceprovider.entities.GoogleAccount;
@@ -29,31 +32,37 @@ public class GoogleAppsAdapter extends IntegrationAdapter<GoogleAccount>{
 				,props.get("erproxyuser")
 				,props.get("erproxypassword")
 		);
-		ServiceAuthorizator authorizator;
-		if(connectionProperties.get("googleoauthtoken")!=null){
-			OAuthAuthorizator oAuthAuthorizator = new OAuthAuthorizator();
-			oAuthAuthorizator.setOAuthConsumerKey(props.get("googleoauthconsumerkey"));
-			oAuthAuthorizator.setOAuthConsumerSecret(props.get("googleoauthconsumersecret"));
-			HashMap<String,String> oauthtoken = mapper.readValue(props.get("googleoauthtoken"), HashMap.class);
-			oAuthAuthorizator.setOAuthToken(oauthtoken.get("accessToken"));
-			oAuthAuthorizator.setOAuthTokenSecret(oauthtoken.get("tokenSecret"));
-			authorizator = oAuthAuthorizator;
-		}else{
-			ClientLoginAuthorizator clientLoginAuthorizator = new ClientLoginAuthorizator();
-			clientLoginAuthorizator.setUsername((String) connectionProperties.get("eruid"));
-			clientLoginAuthorizator.setPassword((String) connectionProperties.get("erpassword"));
-			authorizator = clientLoginAuthorizator;
-		}
-		
 		webservices = new GoogleWebServiceOperations();
-		webservices.setAuthorizator(authorizator);
 		webservices.setDomain(props.get("maildomain"));
-		webservices.authorizeServices();
+		try{
+			webservices.setAuthorizator(getOAuthAuthorizator(props));
+			webservices.authorizeServices();
+		}catch(Exception ex){
+			webservices.setAuthorizator(getClientLoginAuthorizator(props));
+			webservices.authorizeServices();
+		}
 		mapper = new ObjectMapper();
 		mapper.configure(Feature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		return true;
 	}
 
+	private ServiceAuthorizator getOAuthAuthorizator(Map<String,String> connectionProperties) throws JsonParseException, JsonMappingException, IOException{
+		OAuthAuthorizator oAuthAuthorizator = new OAuthAuthorizator();
+		oAuthAuthorizator.setOAuthConsumerKey(connectionProperties.get("googleoauthconsumerkey"));
+		oAuthAuthorizator.setOAuthConsumerSecret(connectionProperties.get("googleoauthconsumersecret"));
+		HashMap<String,String> oauthtoken = new ObjectMapper().readValue(connectionProperties.get("googleoauthtoken"), HashMap.class);
+		oAuthAuthorizator.setOAuthToken(oauthtoken.get("accessToken"));
+		oAuthAuthorizator.setOAuthTokenSecret(oauthtoken.get("tokenSecret"));
+		return oAuthAuthorizator;
+	}
+	
+	private ServiceAuthorizator getClientLoginAuthorizator(Map connectionProperties){
+		ClientLoginAuthorizator clientLoginAuthorizator = new ClientLoginAuthorizator();
+		clientLoginAuthorizator.setUsername((String) connectionProperties.get("eruid"));
+		clientLoginAuthorizator.setPassword((String) connectionProperties.get("erpassword"));
+		return clientLoginAuthorizator;
+		
+	}
 	
 	public GoogleAccount add(Map connectionProperties,GoogleAccount account) throws Exception {
 		connect(connectionProperties);

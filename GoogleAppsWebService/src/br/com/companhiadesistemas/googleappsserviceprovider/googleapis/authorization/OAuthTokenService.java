@@ -24,7 +24,12 @@ public class OAuthTokenService implements OAuthTokenServiceInterface{
 			HashMap<String,String> authorizingURLAndUnauthorizedSecret = new HashMap<String,String>();
 			oauth = getParameters(consumerKey, consumerSecret);
 			oauth.setOAuthCallback(callbackURL);
-			oauthHelper.getUnauthorizedRequestToken(oauth);
+			try {
+				oauthHelper.getUnauthorizedRequestToken(oauth);
+			} catch (OAuthException e) {
+				e.printStackTrace();
+				throw(new Exception("Unauthorized"));
+			}
 			authorizingURLAndUnauthorizedSecret.put("authorizingURL", oauthHelper.createUserAuthorizationUrl(oauth));
 			authorizingURLAndUnauthorizedSecret.put("unauthorizedSecret", oauth.getOAuthTokenSecret());
 			System.out.println("authorizingURLAndUnauthorizedSecret: "+authorizingURLAndUnauthorizedSecret);

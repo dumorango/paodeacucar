@@ -8,29 +8,38 @@ import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.InitialDirContext;
 import javax.naming.ldap.InitialLdapContext;
+import org.springframework.ldap.core.support.LdapContextSource;
 
 
 import org.springframework.ldap.core.*;
 import org.springframework.ldap.core.support.*;
 
 import br.com.companhiadesistemas.itim.properties.ItimProperties;
+import br.com.companhiadesistemas.itimpropertieswrapper.ItimPropertiesWrapper;
 
-public class ItimLdapContext implements ContextSource{
+public class ItimLdapContext extends LdapContextSource{
 	  
-	public ItimLdapContext() throws FileNotFoundException, IOException{
+	public ItimLdapContext() {
+		Hashtable<String, String> env;
+		try {
+			env = new ItimProperties().getLdapConnectionEnvironment();
+			this.setUrl(env.get("java.naming.provider.url"));
+			this.setPassword(env.get("java.naming.security.credentials"));
+			this.setUserDn(env.get("java.naming.security.principal"));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-	public DirContext getReadOnlyContext(){
-		return getContext();
-}
-
-	public DirContext getReadWriteContext(){
-			return getContext();
+		
+		
 	}
-
-	public DirContext getContext(String principal, String credentials){
-		return getContext();
-}
+	
 	private DirContext getContext(){
 		try {
 			Hashtable env = new ItimProperties().getLdapConnectionEnvironment();
@@ -44,6 +53,9 @@ public class ItimLdapContext implements ContextSource{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

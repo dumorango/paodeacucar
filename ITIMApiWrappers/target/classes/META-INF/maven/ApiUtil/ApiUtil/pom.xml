@@ -24,6 +24,12 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 </properties>
   	<dependencies>
+  		<!-- ITIM Properties Wrapper -->
+  		<dependency>
+  		<groupId>ItimPropertiesWrapper</groupId>
+  		<artifactId>ItimPropertiesWrapper</artifactId>
+  		<version>0.0.1-SNAPSHOT</version>
+  	</dependency>
   		<!--  Spring -->
   		<dependency>
 			<groupId>org.springframework</groupId>
@@ -94,7 +100,7 @@
         <dependency>
         	<groupId>commons-codec</groupId>
         	<artifactId>commons-codec</artifactId>
-        	<version>1.7</version>
+        	<version>1.6</version>
         </dependency>
         <dependency>
          <groupId>org.reflections</groupId>

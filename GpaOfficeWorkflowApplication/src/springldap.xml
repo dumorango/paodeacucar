@@ -53,8 +53,16 @@
    </set>
   </property>
  </bean>
- <bean id="contextSource" class="br.com.companhiadesistemas.itim.ldap.ItimLdapContext">
+ <!-- <bean id="contextSource1" class="br.com.companhiadesistemas.itim.ldap.ItimLdapContext">
+ </bean>-->
+ <bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+ 	<property name="url" value="ldap://10.100.150.70:389" />
+  	<property name="userDn" value="cn=root" />
+  	<property name="password" value="tooJoon7" />
  </bean>
+ 
+ 
+ 
  <bean id="odmManager" class="org.springframework.ldap.odm.core.impl.OdmManagerImplFactoryBean">
         <property name="converterManager" ref="converterManager" />
         <property name="managedClasses">
@@ -67,15 +75,18 @@
  <bean id="historicalGAppsAccountManager" name="historicalGAppsAccountManager"
  	class="br.com.companhiadesistemas.itim.gpa.gpaoffice.customizations.HistoricalOrgsManager">
  <property name="manager" ref="odmManager"></property>
- <property name="baseDN" value="dc=teste,DC=TIM"></property>
- </bean>
- <bean id="ldapTemplate">
- <constructor-arg ref="contextSource"></constructor-arg>
+ <property name="baseDN" value="ou=entitiesExtensions,DC=TIM"></property>
  </bean>
  
+ 
+ <bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+ 	<constructor-arg ref="contextSource"></constructor-arg>
+ </bean>
+ <!-- 
  <bean id="ldapContact">
  <property name="ldapTemplate" ref="ldapTemplate"></property>
  </bean>
+ -->
  
  
 </beans>

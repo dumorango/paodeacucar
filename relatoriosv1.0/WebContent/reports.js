@@ -1144,7 +1144,7 @@ function clearHours(date){
 function getProcessesByDateAndService(params){
 	var dia_em_ms = (1000*60*60*24);
 	var interval = (1000*60*60*12);
-	var limite = 7;
+	var limite = 30;
 	var retorno = [];
 	var start = params.start;
 	var end = params.end;

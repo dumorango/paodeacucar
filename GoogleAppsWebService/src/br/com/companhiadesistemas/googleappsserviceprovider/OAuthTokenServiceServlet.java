@@ -25,7 +25,7 @@ public class OAuthTokenServiceServlet extends HttpServlet {
         		 //String queryString = getQueryString(req);
         	     this.jsonRpcServer.setAllowExtraParams(true);
         	     jsonRpcServer.setAllowLessParams(true);
-        	     jsonRpcServer.setRethrowExceptions(true);
+        	     jsonRpcServer.setRethrowExceptions(false);
 				 jsonRpcServer.handle(req, resp);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

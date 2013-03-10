@@ -12,12 +12,17 @@ import com.ibm.itim.dataservices.model.PartialResultsException;
 import com.ibm.itim.dataservices.model.SearchResults;
 import com.ibm.itim.dataservices.model.SearchResultsIterator;
 import com.ibm.itim.dataservices.model.domain.AccountEntity;
+import com.ibm.itim.dataservices.model.domain.Supervisor;
+import com.ibm.itim.script.ScriptContextDAO;
 import com.ibm.itim.script.ScriptEvaluationException;
+import com.ibm.itim.script.extensions.model.ContextStorageManager;
 import com.ibm.itim.script.extensions.model.impl.AccountSearchBeanImpl;
 import com.ibm.itim.script.wrappers.generic.AccountWrapper;
+import com.ibm.itim.script.wrappers.generic.ProtectedAccountWrapper;
 
 public class CustomAccountSearchWrapper extends AccountSearchBeanImpl{
 	
+	ScriptContextDAO dao = ContextStorageManager.getScriptContext();
 	public void teste(){
 		System.out.println(this.getClass()+" Teste");
 	}
@@ -30,7 +35,8 @@ public class CustomAccountSearchWrapper extends AccountSearchBeanImpl{
 		SearchResultsIterator sri = result.iterator();
 		ArrayList retorno_list = new ArrayList();
 		for(int i=0;sri.hasNext();i++){
-			retorno_list.add(new AccountWrapper(((DirectoryObjectEntity) sri.next()).getDirectoryObject()));
+			//retorno_list.add(new ProtectedAccountWrapper(((DirectoryObjectEntity) sri.next()).getDirectoryObject()));
+			retorno_list.add(dao.addContextItem((DirectoryObjectEntity)sri.next()));
 		} 
 		return retorno_list.toArray();
 	} catch (Exception e) {
