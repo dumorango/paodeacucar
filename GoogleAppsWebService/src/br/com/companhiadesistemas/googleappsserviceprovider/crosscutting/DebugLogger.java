@@ -21,7 +21,6 @@ public class DebugLogger {
 	public void logBefore(JoinPoint joinPoint){
 		if(GoogleWebService.class.isAssignableFrom(joinPoint.getSignature().getDeclaringType())){
 			Logging.LOGGER.info("Iniciando o método de webservice "+joinPoint.getSignature().getName()+" da Classe "+joinPoint.getSignature().getDeclaringTypeName());
-			Logging.LOGGER.debug("Argumentos:"+ Arrays.toString(joinPoint.getArgs()));
 		}
 	}
 	
