@@ -38,6 +38,7 @@ public class GoogleAppsAdapter extends IntegrationAdapter<GoogleAccount>{
 			webservices.setAuthorizator(getOAuthAuthorizator(props));
 			webservices.authorizeServices();
 		}catch(Exception ex){
+			ex.printStackTrace();
 			webservices.setAuthorizator(getClientLoginAuthorizator(props));
 			webservices.authorizeServices();
 		}
